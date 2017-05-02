@@ -1,6 +1,6 @@
 ﻿// ==UserScript==
 // @name         515 daily
-// @version      0.2
+// @version      0.2.1
 // @description  2017起点515活动自动
 // @author       xyau
 // @downloadURL       https://github.com/xyauhideto/qidian/raw/master/515%20daily.user.js
