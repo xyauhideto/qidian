@@ -16,9 +16,9 @@ author = '蝴蝶蓝';
 //自动投赞赏
 autoVote = 1;
 //赞赏全投，否则投1张
-voteAll = 0;
+voteAll = 1;
 //自动兑称号
-autoExchange = 1;
+autoExchange = 0;
 //自动发贴分享
 autoShare = 1;
 //领取礼包
