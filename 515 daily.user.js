@@ -38,7 +38,7 @@ window.addEventListener('DOMContentLoaded',
                         function() {
 url = location.href;
     // 投赞赏
-if(autoVote==1&&/godLink/i.test(url)){eval("$('a[data-info*="+author+"]')[0].click()");if($('.my-vote-number')[0].innerText>0){if(voteAll==1)$("a[title='充值']").slice(-1)[0].click();$("a[data-click='voteApply']")[0].click();}if(autoRefresh==1)setTimeout('location.reload()', interval);}
+if(autoVote==1&&/godLink/i.test(url)){eval("$('a[data-info*="+author+"]')[0].click()");if($('.my-vote-number')[0].innerText>0){if(voteAll==1)$("a[title='充值']").slice(-1)[0].click();$("a[data-click='voteApply']")[0].click();}if(autoRefresh==1&&getBag==1)setTimeout('location.reload()', interval);}
 	// 兑称号
 if(autoExchange==1&&/godLink/i.test(url)){setTimeout(function(){eval("$('a[data-info*="+author+"]')[1].click()");$("a[data-click='toExChange']")[0].click();},autoVote==1?500:0);}
     if(getBag==1){
