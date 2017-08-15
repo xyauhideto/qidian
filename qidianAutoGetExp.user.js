@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         qidianAutoGetExp
 // @namespace    https://greasyfork.org/users/10290
-// @version      0.2
+// @version      1.0
 // @description  自动领取起点经验、活跃度礼包
 // @author       xyau
 // @match        http://my.qidian.com/*
@@ -14,7 +14,7 @@ window.addEventListener('load', function() {
     'use strict';
     var url = location.href;
     if (/forum/.test(url)) {
-        if (bids.indexOf(parseInt(g_data.bid)) > -1) document.querySelector('.forum-sign').click();
+        document.querySelector('.forum-sign').click();
     }
     // 在线经验
     if (/level/.test(url)) {
