@@ -66,7 +66,7 @@ window.addEventListener('load', function() {
                     uids.forEach(function(e) {
                         window.open('http://my.qidian.com/user/' + e);
                     });
-                    bids.forEach(function(e) {
+                    cbids.forEach(function(e) {
                         window.open('http://forum.qidian.com/index/' + e);
                     });
                 } else {
