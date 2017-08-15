@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         qidianAutoGetExp
 // @namespace    https://greasyfork.org/users/10290
-// @version      1.0
+// @version      1.1
 // @description  自动领取起点经验、活跃度礼包
 // @author       xyau
 // @match        http://my.qidian.com/*
@@ -54,27 +54,27 @@ window.addEventListener('load', function() {
     if (/signeveryday/.test(url)) {
         var params = "content=&type=3&img=a&random=";
         new Ajax("/Ajax/SignHandler.ashx",
-            params,
-            function() {
-                var objresult = eval(arguments[0]);
-                if (objresult.result) {
-                    location.reload(true);
-                    // 签到论坛书号
-                    var cbids = [22661933000779000, 22322981000467400, 22344706000284500, 22300167000689400, 22277657000074300];
-                    // 访问书友UID
-                    var uids = [157811195, 124536726, 5393042, 1129498, 103646169];
-                    uids.forEach(function(e) {
-                        window.open('http://my.qidian.com/user/' + e);
-                    });
-                    cbids.forEach(function(e) {
-                        window.open('http://forum.qidian.com/index/' + e);
-                    });
-                } else {
-                    TipsDialog('提示', objresult.returnString, '');
-                    obj.setAttribute("onclick", "AddSign(this)");
-                }
-            },
-            "post",
-            "addusersign");
+                 params,
+                 function() {
+            var objresult = eval(arguments[0]);
+            if (objresult.result) {
+                location.reload(true);
+                // 签到论坛书号
+                var bids=[24857, 88071, 1039430, 1887208, 3206900];
+                // 访问书友UID
+                var uids=[157811195,124536726,5393042,1129498,103646169];
+                uids.forEach(function(e){
+                    window.open('http://my.qidian.com/user/'+e);
+                });
+                bids.forEach(function(e){
+                    window.open('http://forum.qidian.com/NewForum/List.aspx?forumId='+e);
+                });
+            } else {
+                TipsDialog('提示', objresult.returnString, '');
+                obj.setAttribute("onclick", "AddSign(this)");
+            }
+        },
+                 "post",
+                 "addusersign");
     }
 }, false);
