@@ -1,12 +1,12 @@
 // ==UserScript==
 // @name         qidianAutoGetExp
 // @namespace    https://greasyfork.org/users/10290
-// @version      1.1
+// @version      1.2.20170925
 // @description  自动领取起点经验、活跃度礼包
 // @author       xyau
-// @match        http://my.qidian.com/*
-// @match        http://bbs.qidian.com/signeveryday.aspx
-// @match        http://forum.qidian.com/index/*
+// @match        http*://my.qidian.com/*
+// @match        http*://bbs.qidian.com/signeveryday.aspx
+// @match        http*://forum.qidian.com/index/*
 // @downloadURL       https://github.com/xyauhideto/qidian/raw/master/qidianAutoGetExp.user.js
 // @grant        none
 // ==/UserScript==
@@ -58,7 +58,7 @@ window.addEventListener('load', function() {
                  function() {
             var objresult = eval(arguments[0]);
             if (objresult.result) {
-                location.reload(true);
+                //location.reload(true);
                 // 签到论坛书号
                 var bids=[24857, 88071, 1039430, 1887208, 3206900];
                 // 访问书友UID
