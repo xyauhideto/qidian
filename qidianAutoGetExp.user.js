@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         qidianAutoGetExp
 // @namespace    https://greasyfork.org/users/10290
-// @version      1.3.2017120200
+// @version      1.3.2017120201
 // @description  自动领取起点经验、活跃度礼包
 // @author       xyau
 // @match        http*://my.qidian.com/*
@@ -10,22 +10,23 @@
 // @grant		GM_setValue
 // @run-at		document-start
 // ==/UserScript==
+
 window.addEventListener('load', () => {
 	'use strict';
 	const match = /ywguid=(\d+)/.exec(document.cookie),
-		  // autoLogout = true,
 		  autoLogout = false,
 		  guid = match ? +match[1] : 0,
 		  date = new Date(new Date().getTime() + 288e5).toJSON().substr(0, 10),
 		  host = location.host,
-		  bbsKey = `bbs${guid}`,
-		  bbsValue = () => GM_getValue(bbsKey, '');
-	// bids = [24857, 88071, 1039430, 1887208, 3206900]; // 论坛签到书号
+		  title = document.title;
 
 	if (host.startsWith('my') && $('.qdp-content').length) {
-		$('.qdp-content')
-			.prepend('<h3 class=qdp-title>自动领取</h3><div class="qdp-head _autoGet" style=padding:12px><span></span></div>');
-		const info = text => $('._autoGet').prepend(`<p>${text}</p>`);
+		const info = text => {
+			if (!$('._autoGet').length)
+				$('.qdp-content')
+					.prepend('<h3 class=qdp-title>自动领取</h3><div class="qdp-head _autoGet" style=padding:12px><span></span></div>');
+			$('._autoGet').prepend(`<p>${text}</p>`);
+		};
 
 		// 在线经验
 		const eE = $('#elTaskWrap a');
@@ -33,13 +34,13 @@ window.addEventListener('load', () => {
 			if (eE.hasClass('elGetExp'))
 				eE.click();
 			else {
-				$('._autoGet').prepend(`在线经验包${eE.data('num')}: `);
 				const oE = new MutationObserver(
 					ms => {
 						if (eE.hasClass('elGetExp'))
 							eE.click();
 						else
-							$('._autoGet span:first').text(eE.text());});
+							document.title = `${eE.text()}|${eE.data('num')} ${title}`;
+					});
 				oE.observe(eE[0], {attributes: true, childList: true});
 			}
 		}
@@ -105,15 +106,15 @@ window.addEventListener('load', () => {
 		}
 
 		// 访问书友
-		const userKey = `user${guid}`,
-			  uids = [157811195,124536726,5393042,1129498,103646169]; // 访问书友UID
+		const userKey = `user${guid}`;
 		let userValue = GM_getValue(userKey, '');
 		if (! userValue || ! userValue.match(date)) {
 			userValue = date;
 			GM_setValue(userKey, userValue);
 		}
 		if (! userValue.match(/,/g) || uids.length > userValue.match(/,/g).length) {
-			uids.forEach(uid =>	{
+			[157811195,124536726,5393042,1129498,103646169]
+				.forEach(uid =>	{
 				if (! userValue.includes(uid))
 					$('body').prepend(
 						$('<iframe></iframe>')
