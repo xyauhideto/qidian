@@ -1,11 +1,10 @@
 // ==UserScript==
 // @name         qidianAutoGetExp
 // @namespace    https://greasyfork.org/users/10290
-// @version      1.3.2017112221
+// @version      1.3.2017120200
 // @description  自动领取起点经验、活跃度礼包
 // @author       xyau
 // @match        http*://my.qidian.com/*
-// @match        http*://bbs.qidian.com/*
 // @downloadURL       https://github.com/xyauhideto/qidian/raw/master/qidianAutoGetExp.user.js
 // @grant		GM_getValue
 // @grant		GM_setValue
@@ -139,86 +138,6 @@ window.addEventListener('load', () => {
 					GM_setValue(guid, date);
 			});
 		}
-
-		// 天天打卡
-		if (! bbsValue() || date !== bbsValue()) {
-			const frame = $('<iframe></iframe>').
-			css(style).
-			load(function() {
-				const w = $(this).prop('contentWindow'),
-					  check = setInterval(() => {
-						  if (! bbsValue() || date !== bbsValue())
-							  w.postMessage(g_data.user.nickName, 'https://bbs.qidian.com');
-						  else {
-							  clearInterval(check);
-							  $(this).remove();
-							  info('打卡成功！');
-						  }
-					  }, 2e3);
-			}).
-			attr('src', '//bbs.qidian.com/signeveryday.aspx').
-			get(0);
-			$('body').prepend(frame);
-			addEventListener('message', event => {console.log(origin, event);//debugger;
-				if ('relogin' !== event.data)
-					info(event.data);
-				else
-					location.reload();
-			});
-		}
-
 	}
 
-	// 天天打卡
-	if (host.startsWith('bbs')) {
-		if (! bbsValue() || date !== bbsValue()) {
-			const match = () => document.cookie.match(/__CONTEXT_BBS_KEY__ ?= ?[^; ]+/g),
-				  bbsNick = () => match() ? decodeURIComponent(match()[0]).split('|')[4] : '';
-			if (! location.protocol.includes('s')) {
-				if (document.querySelector('.before')) {
-					qdLogin();
-				} else {
-					if (opener) {
-						opener.postMessage('', 'https://bbs.qidian.com');
-						close();
-					}
-				}
-			} else {
-				if (document.querySelector('.before'))
-					open('http://bbs.qidian.com/signeveryday.aspx');
-				addEventListener('message', event => {console.log(event);
-					const checkin = () =>
-					new Ajax(
-						'/Ajax/SignHandler.ashx',
-						'type=3&img=a',
-						r => {
-							if (/:1}|已/.test(r)) {
-								GM_setValue(bbsKey, date);
-								if (autoLogout && confirm('打卡成功，是否登出？')) qdLogout();
-							} else if (top !== window) {
-								top.postMessage(r, 'https://my.qidian.com');
-							}
-						},
-						'post',
-						'addusersign'
-					);
-					if (event.origin === 'http://bbs.qidian.com') {
-						checkin();
-					}
-					if (event.origin === 'https://my.qidian.com') {
-						if (event.data !== bbsNick()) {
-							open('http://bbs.qidian.com/signeveryday.aspx');
-							if ('' !== bbsNick() && top !== window) {
-								qdLogout();
-								setTimeout(() => top.postMessage('relogin', 'https://my.qidian.com'), 2e3);
-							}
-						} else
-							checkin();
-					}
-				});
-
-			}
-		}
-
-	}
 }, false);
