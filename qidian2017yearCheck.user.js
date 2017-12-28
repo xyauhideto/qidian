@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Qidian 2017 year check
 // @namespace    https://github.com/xyauhideto/
-// @version      0.1.2017122812
+// @version      0.1.2017122900
 // @description  2017起点年终盛典
 // @author       xyau
 // @match        http*://activity.qidian.com/2017/yearsCheck/*
@@ -202,7 +202,7 @@
               state = "成功";
               content =
                 "<p class=ticket><span class=c-red>" +
-                num +
+                voteNum +
                 "</span> \u7968</p>\u6295\u7ED9 <span class=c-main>" +
                 voteInfo.actor +
                 "</span>" +
