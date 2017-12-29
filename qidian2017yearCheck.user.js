@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Qidian 2017 year check
 // @namespace    https://github.com/xyauhideto/
-// @version      0.1.2017122900
+// @version      0.1.2017122901
 // @description  2017起点年终盛典
 // @author       xyau
 // @match        http*://activity.qidian.com/2017/yearsCheck/*
@@ -225,7 +225,7 @@
   0,
   /* 点赞评论ID(右击【点赞❤】‘检查/审查元素’，对应data-id值)如 [859477,] */
   []/* 不投票去掉右边的星斜杠 */,
-  /* 评选票设定:信息(右击【投票】‘检查/审查元素’，对应data-info值),数量 */
+  /* 评选票设定:信息(右击【投票】‘检查/审查元素’，对应data-info值),数量 不投票去掉右边的星斜杠 */
   { actor: "叶修", bookId: 1887208, type: "comic" },
-  1/* 不投票去掉左边的斜杠星 */
+  1/**/
 );
